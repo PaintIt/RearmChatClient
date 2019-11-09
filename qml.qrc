@@ -8,5 +8,6 @@
         <file>rec/Ernest_Hemingway.png</file>
         <file>rec/Hans_Gude.png</file>
         <file>ChatToolBar.qml</file>
+        <file>LoginPage.qml</file>
     </qresource>
 </RCC>

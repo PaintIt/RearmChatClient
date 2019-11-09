@@ -1,9 +1,9 @@
-
 #include "sqlcontactmodel.h"
 
 #include <QDebug>
 #include <QSqlError>
 #include <QSqlQuery>
+
 
 static void createTable()
 {

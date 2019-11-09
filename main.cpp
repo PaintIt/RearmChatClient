@@ -1,4 +1,3 @@
-
 #include <QGuiApplication>
 #include <QStandardPaths>
 #include <QSqlDatabase>
@@ -8,6 +7,9 @@
 
 #include "sqlcontactmodel.h"
 #include "sqlconversationmodel.h"
+
+#include "connection.h"
+
 
 static void connectToDatabase()
 {
@@ -33,6 +35,7 @@ static void connectToDatabase()
     }
 }
 
+
 int main(int argc, char *argv[])
 {
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
@@ -42,9 +45,12 @@ int main(int argc, char *argv[])
     qmlRegisterType<SqlConversationModel>("io.qt.examples.chattutorial", 1, 0, "SqlConversationModel");
 
     connectToDatabase();
+    Connection connect;
 
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("connect", &connect);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
     if (engine.rootObjects().isEmpty())
         return -1;
 

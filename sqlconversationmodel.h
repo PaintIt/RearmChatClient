@@ -8,6 +8,7 @@ class SqlConversationModel : public QSqlTableModel
     Q_OBJECT
     Q_PROPERTY(QString recipient READ recipient WRITE setRecipient NOTIFY recipientChanged)
 
+
 public:
     SqlConversationModel(QObject *parent = nullptr);
 
@@ -20,8 +21,10 @@ public:
     Q_INVOKABLE void sendMessage(const QString &recipient, const QString &message);
     Q_INVOKABLE void removeMessage(const int pos);
 
+
 signals:
     void recipientChanged();
+
 
 private:
     QString m_recipient;

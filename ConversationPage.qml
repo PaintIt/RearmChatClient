@@ -38,6 +38,7 @@ Page {
             displayMarginBeginning: 40
             displayMarginEnd: 40
             verticalLayoutDirection: ListView.BottomToTop
+            boundsBehavior: ListView.OvershootBounds
             spacing: 12
             model: SqlConversationModel {
                 recipient: inConversationWith

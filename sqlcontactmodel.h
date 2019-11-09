@@ -1,4 +1,3 @@
-
 #ifndef SQLCONTACTMODEL_H
 #define SQLCONTACTMODEL_H
 

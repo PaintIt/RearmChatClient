@@ -7,7 +7,17 @@ import io.qt.examples.chattutorial 1.0
 Page {
     id: root
 
+    property bool logged: true
+
     header: ChatToolBar {
+        ToolButton{
+            text: qsTr("Logout")
+            anchors.left: parent.left
+            anchors.leftMargin: 5
+            anchors.verticalCenter: parent.verticalCenter
+            onClicked: {logged = false; loggedChanged()}
+        }
+
         Label {
             text: qsTr("Contacts")
             font.pixelSize: 20

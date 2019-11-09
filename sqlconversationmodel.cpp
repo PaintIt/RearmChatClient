@@ -1,4 +1,3 @@
-
 #include "sqlconversationmodel.h"
 
 #include <QDateTime>
@@ -23,9 +22,9 @@ static void createTable()
         "'author' TEXT NOT NULL,"
         "'recipient' TEXT NOT NULL,"
         "'timestamp' TEXT NOT NULL,"
-        "'message' TEXT NOT NULL"
-        /*"FOREIGN KEY('author') REFERENCES Contacts ( name ),"
-        "FOREIGN KEY('recipient') REFERENCES Contacts ( name )"*/
+        "'message' TEXT NOT NULL,"
+        "FOREIGN KEY('author') REFERENCES Contacts ( name ),"
+        "FOREIGN KEY('recipient') REFERENCES Contacts ( name )"
         ")")) {
         qFatal("Failed to query database: %s", qPrintable(query.lastError().text()));
     }
@@ -39,6 +38,7 @@ static void createTable()
                "Hvor mange timer har du brukt på den?')");*/
 }
 
+
 SqlConversationModel::SqlConversationModel(QObject *parent) :
     QSqlTableModel(parent)
 {
@@ -49,10 +49,12 @@ SqlConversationModel::SqlConversationModel(QObject *parent) :
     setEditStrategy(QSqlTableModel::OnManualSubmit);
 }
 
+
 QString SqlConversationModel::recipient() const
 {
     return m_recipient;
 }
+
 
 void SqlConversationModel::setRecipient(const QString &recipient)
 {
@@ -69,6 +71,7 @@ void SqlConversationModel::setRecipient(const QString &recipient)
     emit recipientChanged();
 }
 
+
 QVariant SqlConversationModel::data(const QModelIndex &index, int role) const
 {
     if (role < Qt::UserRole)
@@ -77,6 +80,7 @@ QVariant SqlConversationModel::data(const QModelIndex &index, int role) const
     const QSqlRecord sqlRecord = record(index.row());
     return sqlRecord.value(role - Qt::UserRole);
 }
+
 
 QHash<int, QByteArray> SqlConversationModel::roleNames() const
 {
@@ -88,6 +92,7 @@ QHash<int, QByteArray> SqlConversationModel::roleNames() const
     names[Qt::UserRole + 4] = "message";
     return names;
 }
+
 
 void SqlConversationModel::sendMessage(const QString &recipient, const QString &message)
 {
@@ -105,6 +110,7 @@ void SqlConversationModel::sendMessage(const QString &recipient, const QString &
 
     submitAll();
 }
+
 
 void SqlConversationModel::removeMessage(const int id)
 {
