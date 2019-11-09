@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>ContactPage.qml</file>
+        <file>ConversationPage.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>rec/Albert_Einstein.png</file>
+        <file>rec/Ernest_Hemingway.png</file>
+        <file>rec/Hans_Gude.png</file>
+        <file>ChatToolBar.qml</file>
+    </qresource>
+</RCC>
