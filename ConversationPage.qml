@@ -1,4 +1,3 @@
-
 import QtQuick 2.12
 import QtQuick.Layouts 1.12
 import QtQuick.Controls 2.12
@@ -56,40 +55,42 @@ Page {
 
                     Image {
                         id: avatar
-                        source: !sentByMe ? "qrc:/rec/" + model.author.replace(" ", "_") + ".png" : ""
+                        source: !sentByMe ? "qrc:/rec/" + model.author.replace(
+                                                " ", "_") + ".png" : ""
                     }
 
-                    Item{
+                    Item {
                         height: textMessage.implicitHeight + 24
-                        width: Math.min(textMessage.implicitWidth + 24, listView.width - avatar.width - messageRow.spacing)
+                        width: Math.min(
+                                   textMessage.implicitWidth + 24,
+                                   listView.width - avatar.width - messageRow.spacing)
                         //width: (textMessage.implicitWidth + 20) > (textMessage.width + 10) ? textMessage.width + 10 : textMessage.implicitWidth + 20
                         Rectangle {
                             id: messageArea
                             anchors.fill: parent
-                            color: !sentByMe? "#aaffaa" : "steelblue"
+                            color: !sentByMe ? "#aaffaa" : "steelblue"
                             radius: 5
-                            anchors.right: sentByMe? parent.right : undefined
+                            anchors.right: sentByMe ? parent.right : undefined
                         }
                         Text {
                             id: textMessage
                             anchors.fill: parent
                             anchors.margins: 10
                             text: model.message
-                            horizontalAlignment: sentByMe? Text.AlignRight : undefined
+                            horizontalAlignment: sentByMe ? Text.AlignRight : undefined
                             wrapMode: Text.Wrap
                             textFormat: Text.RichText
                             font.pixelSize: 14
                         }
 
-                       /* MouseArea{
+
+                        /* MouseArea{
                             anchors.fill: parent
                             onClicked:{
                                 listView.model.removeMessage(model.id)
                             }
                         }*/
-
                     }
-
                 }
 
                 Label {
@@ -109,24 +110,67 @@ Page {
             RowLayout {
                 width: parent.width
 
+                Rectangle {
+                    id: smilesButton
+                    height: 30
+                    color: "#00ffffff"
+                    width: 30
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/rec/smiles/1f60a.png"
+                    }
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            !smilesPopup.opened ? smilesPopup.open(
+                                                      ) : "undefined"
+                        }
+                    }
+                }
+
                 TextArea {
                     id: messageField
                     Layout.fillWidth: true
                     placeholderText: qsTr("Compose message")
                     wrapMode: TextArea.Wrap
+                    selectByMouse: true
+                    selectByKeyboard: true
+                    textFormat: TextEdit.RichText
                 }
 
-                Button {
+                Rectangle {
                     id: sendButton
-                    text: qsTr("Send")
+                    height: 20
+                    color: "#00ffffff"
+                    width: 20
                     enabled: messageField.length > 0
-                    onClicked: {
-                        listView.model.sendMessage(inConversationWith, messageField.text);
-                        messageField.text = "";
+                    rotation: 180
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            listView.model.sendMessage(inConversationWith,
+                                                       messageField.text)
+                            messageField.text = ""
+                        }
+                    }
+                    Text {
+                        anchors.fill: parent
+                        text: "\u25C0"
+                        font.pixelSize: 20
+                        color: parent.enabled ? "skyblue" : "undefined"
                     }
                 }
-            }
-        }
+            } // RowLayout
+        } // Pane
+    } // ColumnLayout
+
+    SmilesArea {
+        id: smilesPopup
+        width: root.width * 0.8
+        height: root.height / 2
+        x: 0
+        y: pane.y - height
+        onIsClickedChanged: messageField.insert(messageField.cursorPosition,
+                                                path)
     }
 }
-

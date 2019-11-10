@@ -121,9 +121,9 @@ Page {
                 onClicked: {
                     console.debug("register...")
                     loginPage.forceActiveFocus()
-                    //connect.sendRegisterData(txtEmail.text, txtNickName.text,
-                    //                         txtPassword.text)
-                    register()
+                    connect.sendRegisterData(txtEmail.text, txtNickName.text,
+                                             txtPassword.text)
+                    //register()
                 }
             }
             Button {

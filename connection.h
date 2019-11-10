@@ -32,8 +32,8 @@ public slots:
     void readyRead();
     void disconnected();
 
-    void sendRegisterData(QString email, QString nickName, QString password);
-    void sendAuthData(QString email, QString password);
+    void sendRegisterData(const QString email, const QString nickName, const QString password);
+    void sendAuthData(const QString email, const QString password);
     //void sendMessage(QString recepient, QString data);
 
 

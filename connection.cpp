@@ -1,10 +1,13 @@
-#include "connection.h"
+#include <QCryptographicHash>
+
 #include "QDebug"
 
 
 #include <QJsonObject>
 #include <QJsonObject>
 #include <QJsonParseError>
+
+#include "connection.h"
 
 
 Connection::Connection(QObject *parent) : QObject(parent)
@@ -40,9 +43,11 @@ void Connection::disconnected()
 void Connection::sendRegisterData(QString email, QString nickName, QString password)
 {
     QByteArray jsonData;
+    QByteArray hashPassword = password.toUtf8();
+
     jsonData.append("{\"email\":\"" + email + "\",");
     jsonData.append("\"nick\":\""  + nickName + "\",");
-    jsonData.append("\"pass\":\""  + password + "\",");
+    jsonData.append("\"pass\":\""  + QCryptographicHash::hash(hashPassword,QCryptographicHash::Sha256).toHex()  + "\",");
     jsonData.append("\"type\":\"register\"}");
     socket->write(jsonData);
 }
