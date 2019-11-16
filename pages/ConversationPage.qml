@@ -4,26 +4,27 @@ import QtQuick.Controls 2.12
 
 import io.qt.examples.chattutorial 1.0
 
+import "../customs"
+
 Page {
-    id: root
 
     property string inConversationWith
+    property int    _messageTextSize: settings.messTextSize
+    property string _backgroundColor: settings.backgroundColor
+    property string _backgroundImage: settings.backgroundImage
+
+    id: root
+
+    Image {
+        id: backImg
+        anchors.fill: parent
+        source: _backgroundImage == "non" ? "" : _backgroundImage
+    }
 
     header: ChatToolBar {
-        ToolButton {
-            text: "\u25C0"
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            anchors.verticalCenter: parent.verticalCenter
-            onClicked: root.StackView.view.pop()
-        }
-
-        Label {
-            id: pageTitle
-            text: inConversationWith
-            font.pixelSize: 20
-            anchors.centerIn: parent
-        }
+        _btnVisible: true
+        _textContent: inConversationWith
+        onBtnClicked: root.StackView.view.pop()
     }
 
     ColumnLayout {
@@ -44,7 +45,7 @@ Page {
             }
             delegate: Column {
                 anchors.right: sentByMe ? parent.right : undefined
-                spacing: 6
+                spacing: 2
 
                 readonly property bool sentByMe: model.recipient !== "Me"
 
@@ -68,7 +69,7 @@ Page {
                         Rectangle {
                             id: messageArea
                             anchors.fill: parent
-                            color: !sentByMe ? "#aaffaa" : "steelblue"
+                            color: !sentByMe ? "#aaffaa" : Qt.lighter(_backgroundColor)
                             radius: 5
                             anchors.right: sentByMe ? parent.right : undefined
                         }
@@ -80,7 +81,7 @@ Page {
                             horizontalAlignment: sentByMe ? Text.AlignRight : undefined
                             wrapMode: Text.Wrap
                             textFormat: Text.RichText
-                            font.pixelSize: 14
+                            font.pixelSize: _messageTextSize
                         }
 
 
@@ -99,6 +100,9 @@ Page {
                     color: "lightgrey"
                     anchors.right: sentByMe ? parent.right : undefined
                     font.pixelSize: 10
+                    background: Rectangle{
+                        color: "black"
+                    }
                 }
             }
         }
@@ -135,7 +139,7 @@ Page {
                     wrapMode: TextArea.Wrap
                     selectByMouse: true
                     selectByKeyboard: true
-                    textFormat: TextEdit.RichText
+                    textFormat: TextEdit.PlainText
                 }
 
                 Rectangle {
@@ -170,7 +174,11 @@ Page {
         height: root.height / 2
         x: 0
         y: pane.y - height
-        onIsClickedChanged: messageField.insert(messageField.cursorPosition,
+        onIsClickedChanged:{
+            messageField.textFormat = TextArea.RichText
+            messageField.insert(messageField.cursorPosition,
                                                 path)
-    }
+            //messageField.textFormat = TextArea.PlainText
+            }
+        }
 }

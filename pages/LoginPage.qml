@@ -11,7 +11,7 @@ Page {
     title: qsTr("Login")
 
     background: Rectangle {
-        color: "#cee45e"
+        color: "#00ffffff"
     }
 
     // login form background
@@ -20,7 +20,7 @@ Page {
         anchors.centerIn: parent
         width: content.width + 48
         height: content.height + 16
-        color: "#006188"
+        color: "#8bc8e0"
         radius: 4
     }
 
