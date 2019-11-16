@@ -7,6 +7,7 @@
 
 #include "sqlcontactmodel.h"
 #include "sqlconversationmodel.h"
+#include "appsettings.h"
 
 #include "connection.h"
 
@@ -44,11 +45,15 @@ int main(int argc, char *argv[])
     qmlRegisterType<SqlContactModel>("io.qt.examples.chattutorial", 1, 0, "SqlContactModel");
     qmlRegisterType<SqlConversationModel>("io.qt.examples.chattutorial", 1, 0, "SqlConversationModel");
 
-    connectToDatabase();
     Connection connect;
-
+    AppSettings *sett = new AppSettings();
     QQmlApplicationEngine engine;
+
+    connectToDatabase();
+    sett->connectToDataBase();
+
     engine.rootContext()->setContextProperty("connect", &connect);
+    engine.rootContext()->setContextProperty("settings",sett);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     if (engine.rootObjects().isEmpty())

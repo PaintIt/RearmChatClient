@@ -1,14 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>ContactPage.qml</file>
-        <file>ConversationPage.qml</file>
-        <file>qtquickcontrols2.conf</file>
         <file>rec/Albert_Einstein.png</file>
         <file>rec/Ernest_Hemingway.png</file>
         <file>rec/Hans_Gude.png</file>
-        <file>ChatToolBar.qml</file>
-        <file>LoginPage.qml</file>
         <file>rec/smiles/1/after_boom.png</file>
         <file>rec/smiles/1/ah.png</file>
         <file>rec/smiles/1/amazing.png</file>
@@ -165,7 +160,21 @@
         <file>rec/smiles/263a.png</file>
         <file>rec/smiles/26b0.png</file>
         <file>rec/smiles/2764.png</file>
-        <file>SmilesArea.qml</file>
-        <file>SmilesModel.qml</file>
+        <file>customs/ChatToolBar.qml</file>
+        <file>customs/SmilesArea.qml</file>
+        <file>customs/SmilesModel.qml</file>
+        <file>pages/AccauntInfoPage.qml</file>
+        <file>pages/ContactPage.qml</file>
+        <file>pages/ConversationPage.qml</file>
+        <file>pages/LoginPage.qml</file>
+        <file>pages/SettingsPage.qml</file>
+        <file>rec/background/1.jpg</file>
+        <file>rec/background/2.jpg</file>
+        <file>rec/background/3.jpg</file>
+        <file>customs/SectionSpacer.qml</file>
+        <file>customs/SectionContent.qml</file>
+        <file>customs/SectionHeader.qml</file>
+        <file>customs/SectionDescription.qml</file>
+        <file>qtquickcontrols2.conf</file>
     </qresource>
 </RCC>
