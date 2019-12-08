@@ -1,4 +1,4 @@
-import QtQuick 2.12
+import QtQuick 2.9
 import QtQuick.Controls 2.5
 
 Popup {
@@ -29,12 +29,10 @@ Popup {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    //textArea.insert(textArea.cursorPosition,"<img src=\""+ _sourse + "\" align=\"top\" height=20 width=20>")
-                    path = "<img src=\"" + _sourse + "\"  height=20 width=20>"
+                    path = "<img src=\"" + _sourse + "\" align=\"top\" height=20 width=20>"
                     isClicked++
                 }
             }
-
 
             /*  text: qsTr("<img src=\"" + _sourse + "\"
                                 align=\"top\" height=25 width=25>")

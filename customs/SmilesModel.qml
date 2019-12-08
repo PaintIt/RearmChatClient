@@ -1,4 +1,5 @@
-import QtQuick 2.0
+import QtQuick 2.9
+
 
 ListModel {
 
@@ -205,9 +206,9 @@ ListModel {
     ListElement {
         _sourse: "qrc:/rec/smiles/26b0.png"
     }
-    ListElement {
+    /*ListElement {
         _sourse: "qrc:/rec/smiles/2764.png"
-    }
+    }*/
 
     ListElement {
         _sourse: "qrc:/rec/smiles/1f910.png"
@@ -281,12 +282,12 @@ ListModel {
     ListElement {
         _sourse: "qrc:/rec/smiles/1f9d0.png"
     }
-    ListElement {
+    /*ListElement {
         _sourse: "qrc:/rec/smiles/1f4a4.png"
     }
     ListElement {
         _sourse: "qrc:/rec/smiles/1f4a3.png"
-    }
+    }*/
     ListElement {
         _sourse: "qrc:/rec/smiles/1f48b.png"
     }
