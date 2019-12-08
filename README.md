@@ -1,5 +1,6 @@
 # RearmChatClient
 # Screenshots: 
+<img src="screenshots/1.jpg" width="48">
 ![alt text](screenshots/1.jpg)
 ![alt text](screenshots/2.jpg)
 ![alt text](screenshots/3.jpg)
