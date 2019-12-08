@@ -4,10 +4,10 @@
 #include <QSqlError>
 #include <QtQml>
 #include <QDebug>
+#include <QtQuick>
 
 #include "sqlcontactmodel.h"
 #include "sqlconversationmodel.h"
-#include "appsettings.h"
 
 #include "connection.h"
 
@@ -21,7 +21,7 @@ static void connectToDatabase()
             qFatal("Cannot add database: %s", qPrintable(database.lastError().text()));
     }
 
-    const QDir writeDir = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+    const QDir writeDir = QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation);
     if (!writeDir.mkpath("."))
         qFatal("Failed to create writable directory at %s", qPrintable(writeDir.absolutePath()));
 
@@ -42,18 +42,18 @@ int main(int argc, char *argv[])
     QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
-    qmlRegisterType<SqlContactModel>("io.qt.examples.chattutorial", 1, 0, "SqlContactModel");
-    qmlRegisterType<SqlConversationModel>("io.qt.examples.chattutorial", 1, 0, "SqlConversationModel");
+    qmlRegisterType<SqlContactModel>("chatmodel", 1, 0, "SqlContactModel");
+    qmlRegisterType<SqlConversationModel>("chatmodel", 1, 0, "SqlConversationModel");
 
     Connection connect;
-    AppSettings *sett = new AppSettings();
     QQmlApplicationEngine engine;
 
-    connectToDatabase();
-    sett->connectToDataBase();
+    app.setOrganizationName("Emir");
+    app.setOrganizationDomain("babaev_emir@mail.ru");
+    app.setApplicationName("Rearm");
 
+    connectToDatabase();
     engine.rootContext()->setContextProperty("connect", &connect);
-    engine.rootContext()->setContextProperty("settings",sett);
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     if (engine.rootObjects().isEmpty())

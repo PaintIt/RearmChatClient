@@ -28,8 +28,18 @@ void Connection::readyRead()
     data = socket->readAll();
     qDebug() << data;
 
-    if(data == "register!"){
+    QJsonDocument jsonDoc;
+    QJsonParseError jsonErr;
+    jsonDoc = QJsonDocument::fromJson(data, &jsonErr);
+    if (jsonErr.error == QJsonParseError::NoError){
+        QString nick = jsonDoc.object().value("nick").toString();
+        QString email = jsonDoc.object().value("email").toString();
+        emit getLoginAndEmail(nick ,email);
         emit authStatusOk();
+    }
+    else {
+        qDebug() << jsonErr.errorString();
+        emit authStatusBad();
     }
 
 }
@@ -55,8 +65,10 @@ void Connection::sendRegisterData(QString email, QString nickName, QString passw
 void Connection::sendAuthData(QString email, QString password)
 {
     QByteArray jsonData;
+    QByteArray hashPassword = password.toUtf8();
+
     jsonData.append("{\"email\":\"" + email + "\",");
-    jsonData.append("\"pass\":\""  + password + "\",");
+    jsonData.append("\"pass\":\""  + QCryptographicHash::hash(hashPassword,QCryptographicHash::Sha256).toHex() + "\",");
     jsonData.append("\"type\":\"auth\"}");
     socket->write(jsonData);
 }

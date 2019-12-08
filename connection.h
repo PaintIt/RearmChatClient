@@ -40,6 +40,7 @@ public slots:
 signals:
     void authStatusOk();
     void authStatusBad();
+    void getLoginAndEmail(const QString& login, const QString& email);
 };
 
 #endif // CONNECTION_H
