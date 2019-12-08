@@ -1,31 +1,27 @@
-import QtQuick 2.12
+import QtQuick 2.9
+import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
-import QtQuick.Controls 2.12
+//import QtQuick.Controls.Material 2.3
 
-import io.qt.examples.chattutorial 1.0
+import chatmodel 1.0
 
 import "../customs"
 
 Page {
 
     property string inConversationWith
-    property int    _messageTextSize: settings.messTextSize
-    property string _backgroundColor: settings.backgroundColor
-    property string _backgroundImage: settings.backgroundImage
 
     id: root
+    title: inConversationWith
+    focus: true
 
     Image {
         id: backImg
         anchors.fill: parent
         source: _backgroundImage == "non" ? "" : _backgroundImage
+        asynchronous: true
     }
 
-    header: ChatToolBar {
-        _btnVisible: true
-        _textContent: inConversationWith
-        onBtnClicked: root.StackView.view.pop()
-    }
 
     ColumnLayout {
         anchors.fill: parent
@@ -69,7 +65,7 @@ Page {
                         Rectangle {
                             id: messageArea
                             anchors.fill: parent
-                            color: !sentByMe ? "#aaffaa" : Qt.lighter(_backgroundColor)
+                            color: !sentByMe ? "#aaffaa" : window._primaryColor
                             radius: 5
                             anchors.right: sentByMe ? parent.right : undefined
                         }
@@ -81,7 +77,6 @@ Page {
                             horizontalAlignment: sentByMe ? Text.AlignRight : undefined
                             wrapMode: Text.Wrap
                             textFormat: Text.RichText
-                            font.pixelSize: _messageTextSize
                         }
 
 
@@ -181,4 +176,15 @@ Page {
             //messageField.textFormat = TextArea.PlainText
             }
         }
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back) {
+            console.debug("Pressed!")
+            if(stackView.depth > 1){
+                stackView.pop()
+            }
+            else Qt.quit()
+
+            event.accepted = true
+        }
+    }
 }

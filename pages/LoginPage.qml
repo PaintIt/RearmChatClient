@@ -1,30 +1,29 @@
-import QtQuick 2.12
+import QtQuick 2.9
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.1
+import QtQuick.Controls.Material 2.3
 
 Page {
     property bool isRegisterPage: false
-
+    property string textColor: Material.theme === Material.Dark ? "white" : "black"
     signal register
 
     id: loginPage
     title: qsTr("Login")
 
-    background: Rectangle {
-        color: "#00ffffff"
-    }
 
-    // login form background
+    // ____________login form background_________
     Rectangle {
         id: loginForm
         anchors.centerIn: parent
         width: content.width + 48
         height: content.height + 16
-        color: "#8bc8e0"
+        color: "transparent"
         radius: 4
+        border.color: _primaryColor
     }
 
-    // login form content
+    // ____________login form content____________
     GridLayout {
         id: content
         anchors.centerIn: loginForm
@@ -32,19 +31,21 @@ Page {
         rowSpacing: 10
         columns: 2
 
-        // headline
+        // ______________headline_______________
         Text {
             Layout.topMargin: 8
             Layout.bottomMargin: 12
             Layout.columnSpan: 2
             Layout.alignment: Qt.AlignHCenter
             text: isRegisterPage ? "Register" : "Login"
+            color: textColor
         }
 
-        // email text and field
+        // ___________email text and field_________
         Text {
             text: qsTr("E-mail")
             font.pixelSize: 12
+            color: textColor
         }
 
         TextField {
@@ -55,9 +56,10 @@ Page {
 
         // __________Nick Name field ONLY FOR REGISERING__________
         Text {
-            text: qsTr("Nick name")
+            text: qsTr("Nick")
             visible: isRegisterPage
             font.pixelSize: 12
+            color: textColor
         }
 
         TextField {
@@ -71,6 +73,7 @@ Page {
         Text {
             text: qsTr("Password")
             font.pixelSize: 12
+            color: textColor
         }
 
         TextField {
@@ -90,12 +93,14 @@ Page {
             Button {
                 text: qsTr("Login")
                 visible: !isRegisterPage
-                flat: false
+                flat: true
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     console.debug("login...")
                     loginPage.forceActiveFocus()
                     //connect.sendAuthData(txtEmail.text, txtPassword.text)
+
+                    txtPassword.text = ""
                     register()
                 }
             }
@@ -108,6 +113,7 @@ Page {
                 onClicked: {
                     loginPage.forceActiveFocus()
                     isRegisterPage = true
+                    txtPassword.text = ""
                     console.debug("register page...")
                 }
             }
@@ -116,13 +122,14 @@ Page {
             Button {
                 text: qsTr("Register")
                 visible: isRegisterPage
-                flat: false
+                flat: true
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     console.debug("register...")
                     loginPage.forceActiveFocus()
                     connect.sendRegisterData(txtEmail.text, txtNickName.text,
                                              txtPassword.text)
+                    txtPassword.text = ""
                     //register()
                 }
             }
@@ -135,6 +142,8 @@ Page {
                 onClicked: {
                     loginPage.forceActiveFocus()
                     isRegisterPage = false
+                    txtPassword.text = ""
+                    txtNickName.text = ""
                     console.debug("back...")
                 }
             }

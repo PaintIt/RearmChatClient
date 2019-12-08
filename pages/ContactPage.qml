@@ -1,31 +1,20 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Controls 2.5
 
-import io.qt.examples.chattutorial 1.0
+import chatmodel 1.0
 
 import "../customs"
 
 Page {
 
-    property bool    logged: true
-    property string _backgroundColor: settings.backgroundColor
-    property string _backgroundImage: settings.backgroundImage
-    property int    _mTextSize:       settings.messTextSize
-
 
     id: root
+    title: qsTr("Contacts")
 
-    Image {
-        id: backImg
+    Image{
         anchors.fill: parent
-        source: _backgroundImage == "non" ? "" : _backgroundImage
-        opacity: 0.4
-    }
-
-    header: ChatToolBar {
-        _btnVisible: true
-        _textContent: "Contacts"
-        onBtnClicked: logged = false
+        opacity: 0.35
+        source: _backgroundImage
     }
 
     ListView {
@@ -49,9 +38,13 @@ Page {
             }
         }
     }
-
-    Connections{
-        target: settings
+    FloatingActionButton{
+        imageSource: "qrc:/rec/24/plus.png"
+        z: 1
+        anchors.margins: 16
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        onClicked: toast.start("TODO :)")
     }
 }
 
